@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản trị - VINTEK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div class="modal fade" id="adminLoginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-shield-lock"></i> Đăng nhập Admin</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="adminLoginForm">
+                        <div class="mb-3">
+                            <label class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="adminPassword" required 
+                                   placeholder="Nhập mật khẩu quản trị">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" style="display: none;">
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-md-2 admin-sidebar">
+                <div class="p-4">
+                    <h4 class="text-white mb-4"><i class="bi bi-shield-check"></i> Admin</h4>
+                    <div class="admin-menu-item active" onclick="showTab('orders')">
+                        <i class="bi bi-box-seam"></i> Đơn hàng
+                    </div>
+                    <div class="admin-menu-item" onclick="showTab('products')">
+                        <i class="bi bi-bag"></i> Sản phẩm
+                    </div>
+                    <div class="admin-menu-item" onclick="showTab('news')">
+                        <i class="bi bi-newspaper"></i> Bài viết
+                    </div>
+                    <div class="admin-menu-item" onclick="showTab('vouchers')">
+                        <i class="bi bi-ticket-perforated"></i> Mã giảm giá
+                    </div>
+                    <div class="admin-menu-item" onclick="showTab('customers')">
+                        <i class="bi bi-people"></i> Khách hàng
+                    </div>
+                    <div class="admin-menu-item" onclick="showTab('settings')">
+                        <i class="bi bi-gear"></i> Cài đặt
+                    </div>
+                    <hr class="bg-light">
+                    <div class="admin-menu-item" onclick="adminLogout()">
+                        <i class="bi bi-box-arrow-left"></i> Đăng xuất
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10">
+                <div class="p-4">
+                    <!-- Orders Tab -->
+                    <div id="ordersTab" class="admin-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="bi bi-box-seam"></i> Quản Lý Đơn Hàng</h3>
+                        </div>
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Mã đơn</th>
+                                                <th>Khách hàng</th>
+                                                <th>Tổng tiền</th>
+                                                <th>Thanh toán</th>
+                                                <th>Trạng thái</th>
+                                                <th>Ngày đặt</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ordersTableBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Tab -->
+                    <div id="productsTab" class="admin-tab" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="bi bi-bag"></i> Quản Lý Sản Phẩm</h3>
+                            <button class="btn btn-primary" onclick="showProductForm()">
+                                <i class="bi bi-plus-circle"></i> Thêm sản phẩm
+                            </button>
+                        </div>
+                        <div id="productsList" class="row g-3"></div>
+                    </div>
+
+                    <!-- News Tab -->
+                    <div id="newsTab" class="admin-tab" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="bi bi-newspaper"></i> Quản Lý Bài Viết</h3>
+                            <button class="btn btn-primary" onclick="showNewsForm()">
+                                <i class="bi bi-plus-circle"></i> Thêm bài viết
+                            </button>
+                        </div>
+                        <div id="newsList" class="row g-3"></div>
+                    </div>
+
+                    <!-- Vouchers Tab -->
+                    <div id="vouchersTab" class="admin-tab" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3><i class="bi bi-ticket-perforated"></i> Quản Lý Mã Giảm Giá</h3>
+                            <button class="btn btn-primary" onclick="showVoucherForm()">
+                                <i class="bi bi-plus-circle"></i> Tạo voucher
+                            </button>
+                        </div>
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <div id="vouchersList"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customers Tab -->
+                    <div id="customersTab" class="admin-tab" style="display: none;">
+                        <h3 class="mb-4"><i class="bi bi-people"></i> Danh Sách Khách Hàng</h3>
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Số điện thoại</th>
+                                                <th>Họ tên</th>
+                                                <th>Tổng đơn</th>
+                                                <th>Tổng sản phẩm</th>
+                                                <th>Tổng chi tiêu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="customersTableBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div id="settingsTab" class="admin-tab" style="display: none;">
+                        <h3 class="mb-4"><i class="bi bi-gear"></i> Cài Đặt Hệ Thống</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card shadow-sm mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Cài đặt thanh toán</h5>
+                                        <form id="paymentSettingsForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Giảm giá chuyển khoản (%)</label>
+                                                <input type="number" class="form-control" id="bankDiscountPercent" 
+                                                       value="3" min="0" max="100" step="1">
+                                                <small class="text-muted">Giảm % khi khách chọn chuyển khoản</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Phí vận chuyển (VNĐ)</label>
+                                                <input type="number" class="form-control" id="shippingFee" 
+                                                       value="30000" min="0" step="1000">
+                                                <small class="text-muted">Phí ship mặc định</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Miễn ship từ (số sản phẩm)</label>
+                                                <input type="number" class="form-control" id="freeShipThreshold" 
+                                                       value="10" min="1" step="1">
+                                                <small class="text-muted">Miễn phí ship khi đủ số lượng</small>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card shadow-sm mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Thông tin ngân hàng</h5>
+                                        <form id="bankSettingsForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Tên ngân hàng</label>
+                                                <input type="text" class="form-control" id="bankName" 
+                                                       value="MB Bank">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Số tài khoản</label>
+                                                <input type="text" class="form-control" id="bankAccount" 
+                                                       value="0123456789">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Chủ tài khoản</label>
+                                                <input type="text" class="form-control" id="bankAccountName" 
+                                                       value="CONG TY VINTEK">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Save Button -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle"></i> 
+                                    <strong>Lưu ý:</strong> Sau khi thay đổi cài đặt, nhớ click nút "Lưu cài đặt" bên dưới.
+                                </div>
+                                <button class="btn btn-primary btn-lg" onclick="saveSettings()">
+                                    <i class="bi bi-check-circle"></i> Lưu Cài Đặt
+                                </button>
+                                <button class="btn btn-outline-secondary btn-lg ms-2" onclick="resetSettings()">
+                                    <i class="bi bi-arrow-clockwise"></i> Khôi Phục Mặc Định
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-receipt"></i> Chi Tiết Đơn Hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="adminOrderDetailContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

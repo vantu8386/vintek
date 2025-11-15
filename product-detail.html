@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - VINTEK</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-primary" href="home.html">
+                <i class="bi bi-building"></i> VINTEK
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="news.html">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">Đơn hàng</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="cart.html">
+                            <i class="bi bi-cart3 fs-5"></i>
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">
+                            <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="bg-light py-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="home.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="products.html">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active" id="breadcrumbProduct">Chi tiết</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Product Detail -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Product Image -->
+                <div class="col-lg-5 mb-4">
+                    <div class="card shadow-sm">
+                        <img id="productImage" src="" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-lg-7">
+                    <span id="productCategory" class="badge bg-secondary mb-2"></span>
+                    <h1 id="productName" class="display-6 fw-bold mb-3"></h1>
+                    <p id="productDescription" class="lead text-muted"></p>
+
+                    <!-- Price -->
+                    <div class="card bg-light p-4 mb-4">
+                        <div id="priceSection"></div>
+                        <div class="text-muted small mt-2">
+                            <i class="bi bi-box-seam"></i> <span id="productUnit"></span>
+                        </div>
+                    </div>
+
+                    <!-- Quantity & Actions -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Số lượng:</label>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" onclick="decreaseQty()">
+                                    <i class="bi bi-dash"></i>
+                                </button>
+                                <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
+                                <button class="btn btn-outline-secondary" onclick="increaseQty()">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-primary btn-lg" onclick="addToCartDetail()">
+                            <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng
+                        </button>
+                        <button class="btn btn-success btn-lg" onclick="buyNow()">
+                            <i class="bi bi-lightning-fill"></i> Mua ngay
+                        </button>
+                    </div>
+
+                    <!-- Product Features -->
+                    <div class="mt-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-star-fill text-warning"></i> Đặc điểm nổi bật</h5>
+                        <ul id="productFeatures" class="list-unstyled"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Details Tabs -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#usage" type="button">
+                                Công dụng
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#instructions" type="button">
+                                Hướng dẫn sử dụng
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-4 border border-top-0">
+                        <div class="tab-pane fade show active" id="usage">
+                            <h5 class="fw-bold mb-3">Công dụng</h5>
+                            <div id="productUsage" style="white-space: pre-wrap; line-height: 1.8;"></div>
+                        </div>
+                        <div class="tab-pane fade" id="instructions">
+                            <h5 class="fw-bold mb-3">Hướng dẫn sử dụng</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <h6 class="fw-semibold"><i class="bi bi-droplet"></i> Tỉ lệ pha trộn</h6>
+                                    <p id="productMixRatio" style="white-space: pre-wrap; line-height: 1.8;"></p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h6 class="fw-semibold"><i class="bi bi-rulers"></i> Độ phủ</h6>
+                                    <p id="productCoverage" style="white-space: pre-wrap; line-height: 1.8;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="mt-5">
+                <h3 class="fw-bold mb-4">Sản phẩm liên quan</h3>
+                <div id="relatedProducts" class="row g-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="bi bi-building"></i> VINTEK</h5>
+                    <p class="text-muted">Nhà cung cấp vật liệu xây dựng chất lượng cao</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Liên kết</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="home.html">Trang chủ</a></li>
+                        <li><a href="products.html">Sản phẩm</a></li>
+                        <li><a href="news.html">Tin tức</a></li>
+                        <li><a href="orders.html">Đơn hàng</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Liên hệ</h5>
+                    <p><i class="bi bi-telephone"></i> 1900 xxxx</p>
+                    <p><i class="bi bi-envelope"></i> info@vintek.vn</p>
+                    <p><i class="bi bi-geo-alt"></i> Hà Nội, Việt Nam</p>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 VINTEK. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/product-detail.js"></script>
+</body>
+</html>
