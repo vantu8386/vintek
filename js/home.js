@@ -4,12 +4,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Kiểm tra đăng nhập
     checkAuthentication();
     
+    // Hiển thị số điện thoại user
+    displayUserPhone();
+    
     // Load featured products
     loadFeaturedProducts();
     
     // Update cart count
     updateCartCount();
 });
+
+// Hiển thị số điện thoại user
+function displayUserPhone() {
+    const user = getCurrentUser();
+    if (user && user.phoneNumber) {
+        const userPhoneElement = document.getElementById('userPhone');
+        if (userPhoneElement) {
+            userPhoneElement.textContent = user.phoneNumber;
+        }
+    }
+}
 
 // Load sản phẩm nổi bật
 function loadFeaturedProducts() {
@@ -27,6 +41,7 @@ function loadFeaturedProducts() {
                 <div class="position-relative">
                     <img src="${product.image}" class="product-image" alt="${product.name}">
                     ${product.salePrice ? `<span class="product-badge">-${Math.round((1 - product.salePrice/product.price) * 100)}%</span>` : ''}
+                    ${product.freeShip ? '<span class="badge bg-success position-absolute top-0 start-0 m-2"><i class="bi bi-truck"></i> Free ship</span>' : ''}
                 </div>
                 <div class="card-body">
                     <span class="badge bg-secondary mb-2">${product.category}</span>

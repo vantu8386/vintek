@@ -140,7 +140,7 @@ function viewOrderDetail(orderId) {
                 ` : ''}
                 ${order.bankDiscount > 0 ? `
                     <div class="d-flex justify-content-between mb-2 text-success">
-                        <span>Giảm giá CK (3%):</span>
+                        <span>Giảm giá CK (1%):</span>
                         <span>-${formatPrice(order.bankDiscount)}</span>
                     </div>
                 ` : ''}

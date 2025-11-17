@@ -45,15 +45,19 @@ function loadProductDetail() {
     const priceSection = document.getElementById('priceSection');
     if (currentProduct.salePrice) {
         priceSection.innerHTML = `
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3 flex-wrap">
                 <span class="text-decoration-line-through text-muted fs-5">${formatPrice(currentProduct.price)}</span>
                 <span class="text-danger fw-bold" style="font-size: 2rem;">${formatPrice(currentProduct.salePrice)}</span>
                 <span class="badge bg-danger">-${Math.round((1 - currentProduct.salePrice/currentProduct.price) * 100)}%</span>
+                ${currentProduct.freeShip ? '<span class="badge bg-success"><i class="bi bi-truck"></i> Miễn phí ship</span>' : ''}
             </div>
         `;
     } else {
         priceSection.innerHTML = `
-            <span class="text-primary fw-bold" style="font-size: 2rem;">${formatPrice(currentProduct.price)}</span>
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+                <span class="text-primary fw-bold" style="font-size: 2rem;">${formatPrice(currentProduct.price)}</span>
+                ${currentProduct.freeShip ? '<span class="badge bg-success"><i class="bi bi-truck"></i> Miễn phí ship</span>' : ''}
+            </div>
         `;
     }
     

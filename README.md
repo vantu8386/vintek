@@ -2,7 +2,7 @@
 
 ## 🎯 Mô Tả Dự Án
 
-Website bán vật liệu xây dựng với đầy đủ tính năng thương mại điện tử, hỗ trợ 2 phương thức thanh toán (COD và Chuyển khoản giảm 3%), có trang quản trị Admin hoàn chỉnh.
+Website bán vật liệu xây dựng với đầy đủ tính năng thương mại điện tử, hỗ trợ 2 phương thức thanh toán (COD và Chuyển khoản giảm 1%), có trang quản trị Admin hoàn chỉnh.
 
 ## 📁 Cấu Trúc Thư Mục
 
@@ -14,7 +14,7 @@ vintek-website/
 ├── products.html              # ✅ Danh sách sản phẩm (có lọc)
 ├── product-detail.html        # ✅ Chi tiết sản phẩm
 ├── cart.html                  # ✅ Giỏ hàng (tăng/giảm số lượng)
-├── checkout.html              # ✅ Thanh toán (COD & Chuyển khoản -3%)
+├── checkout.html              # ✅ Thanh toán (COD & Chuyển khoản -1%)
 ├── thank-you.html             # ✅ Trang cảm ơn
 ├── orders.html                # ✅ Lịch sử đơn hàng
 ├── news.html                  # ✅ Danh sách tin tức
@@ -57,9 +57,9 @@ vintek-website/
   - Tự động tính phí ship (miễn phí từ 10 sản phẩm)
 - ✅ **Thanh toán** với 2 phương thức:
   - **COD**: Trả tiền khi nhận hàng
-  - **Chuyển khoản**: Giảm 3%, hiển thị QR code
+  - **Chuyển khoản**: Giảm 1%, hiển thị QR code
     - Nội dung CK: VINTEK + số điện thoại
-    - Số tiền đã trừ 3%
+    - Số tiền đã trừ 1%
 - ✅ **Trang cảm ơn** sau khi đặt hàng
 - ✅ **Lịch sử đơn hàng** với tính năng mua lại
 - ✅ **Tin tức** với danh sách và chi tiết bài viết
@@ -108,7 +108,7 @@ vintek-website/
    - **COD**: Đặt hàng luôn
    - **Chuyển khoản**: Quét QR hoặc chuyển khoản thủ công
      - Nội dung: VINTEK + số điện thoại
-     - Số tiền đã giảm 3%
+     - Số tiền đã giảm 1%
 
 ### 4. Đăng Nhập Admin
 - Mở **admin.html**
@@ -118,10 +118,10 @@ vintek-website/
 ## 💡 Tính Năng Đặc Biệt
 
 ### Thanh Toán Chuyển Khoản
-- ✅ Giảm ngay 3% khi chọn chuyển khoản
+- ✅ Giảm ngay 1% khi chọn chuyển khoản
 - ✅ Hiển thị QR code tự động
 - ✅ Nội dung CK: **VINTEK + [Số điện thoại đăng nhập]**
-- ✅ Số tiền đã trừ 3% được hiển thị rõ ràng
+- ✅ Số tiền đã trừ 1% được hiển thị rõ ràng
 
 ### Giỏ Hàng Thông Minh
 - ✅ Icon giỏ hàng hiển thị số lượng tăng dần
@@ -180,7 +180,7 @@ vintek-website/
 2. **Dữ liệu lưu trong LocalStorage** - Không mất khi reload
 3. **Responsive** - Tương thích mobile và desktop
 4. **Miễn phí ship** từ 10 sản phẩm
-5. **Giảm 3%** khi chuyển khoản
+5. **Giảm 1%** khi chuyển khoản
 
 ## 🐛 Xử Lý Lỗi
 
@@ -211,9 +211,9 @@ Tất cả tính năng theo yêu cầu đã được hoàn thành:
 - ✅ Đăng nhập bắt buộc bằng số điện thoại
 - ✅ Giỏ hàng với số lượng tăng dần
 - ✅ 2 phương thức thanh toán (COD & Chuyển khoản)
-- ✅ Chuyển khoản giảm 3%
+- ✅ Chuyển khoản giảm 1%
 - ✅ Hiển thị số điện thoại trong nội dung CK
-- ✅ Hiển thị số tiền đã trừ 3%
+- ✅ Hiển thị số tiền đã trừ 1%
 - ✅ Trang quản trị Admin hoàn chỉnh
 - ✅ Sắp xếp file gọn gàng và chuyên nghiệp
 

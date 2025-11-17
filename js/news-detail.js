@@ -36,6 +36,13 @@ function loadNewsDetail() {
     document.getElementById('newsDate').textContent = formatDate(currentArticle.createdAt);
     document.getElementById('newsThumbnail').src = currentArticle.thumbnail;
     document.getElementById('newsThumbnail').alt = currentArticle.title;
+    
+    // Hiển thị lượt xem
+    const viewsElement = document.createElement('span');
+    viewsElement.className = 'text-muted';
+    viewsElement.innerHTML = `<i class="bi bi-eye-fill"></i> ${currentArticle.views || 0} lượt xem`;
+    document.querySelector('.d-flex.justify-content-between.align-items-center.mb-4').appendChild(viewsElement);
+    
     document.getElementById('newsContent').innerHTML = currentArticle.content;
     
     // Load related products
